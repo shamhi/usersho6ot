@@ -62,6 +62,13 @@ async def send_gpt_response(client: Client, message: Message):
     await message.delete()
 
     query = fn.get_command_args(message, 'gpt')
+
+    if query == '':
+        return await message.reply('Query is None')
+
+    if message.reply_to_message:
+        query = message.reply_to_message.text
+
     response = await fn.get_gpt_response(query)
 
     try:
