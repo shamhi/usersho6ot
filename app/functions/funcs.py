@@ -31,7 +31,7 @@ def get_chat_info(message: Chat) -> str:
     return f'ㅤㅤㅤㅤㅤㅤㅤㅤ**CHAT INFO**ㅤㅤㅤㅤㅤㅤㅤㅤ\n' \
            f'Chat ID: `{message.id}`\n' \
            f'Chat Type: `{message.type}`\n' \
-           f'Chat Name: `{message.username}`\n' \
+           f'Chat Name: `{message.username}`\n'
 
 
 async def get_gpt_response(query: str) -> str:
@@ -89,19 +89,26 @@ async def get_info_by_ip(ip: str) -> str:
 async def speech_to_text(file_bytes):
     try:
         url = "https://api.edenai.run/v2/audio/speech_to_text_async"
-        headers = {"Authorization": f"Bearer {Config.EDEN_API}"}
-        data = {"providers": "openai", "language": "ru-RU"}
+        headers = {"authorization": f"Bearer {Config.EDEN_API}"}
+        data = {
+            "providers": "openai",
+            "language": "ru-RU",
+        }
         files = {'file': file_bytes}
-
+        print(0)
         async with aiohttp.ClientSession() as session:
+            print(1)
             async with session.post(url, data=data, headers=headers, files=files) as response:
+                print(2)
                 result = await response.json()
-                public_id = result['public_id']
+                print(3)
+                public_id = result.get('public_id')
 
                 async with session.get(f'https://api.edenai.run/v2/audio/speech_to_text_async/{public_id}',
                                        headers=headers) as result:
+                    print(4)
                     result = await result.json()
-                    text = result['results']['openai']['text']
+                    text = result.get('result', {}).get('openai', {}).get('text')
 
                     return text
     except Exception as er:

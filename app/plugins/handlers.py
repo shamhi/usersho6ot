@@ -64,10 +64,10 @@ async def send_gpt_response(client: Client, message: Message):
     query = fn.get_command_args(message, 'gpt')
 
     if query == '':
-        return await message.reply('Query is None')
-
-    if message.reply_to_message:
-        query = message.reply_to_message.text
+        if message.reply_to_message:
+            query = message.reply_to_message.text
+        else:
+            return await message.reply('Query is None')
 
     response = await fn.get_gpt_response(query)
 
@@ -116,9 +116,10 @@ async def send_typing_msg(client: Client, message: Message):
             await asyncio.sleep(e)
 
 
-@router.on_message(filters.voice | filters.audio)
+# @router.on_message(filters.voice | filters.audio)
 async def send_stt_to_me(client: Client, message: Message):
-    file_bytes = await client.download_media(message, in_memory=True)
+    media = await client.download_media(message, in_memory=True)
+    file_bytes = media.getvalue()
     text = await fn.speech_to_text(file_bytes)
 
     await client.send_message('me', text)
