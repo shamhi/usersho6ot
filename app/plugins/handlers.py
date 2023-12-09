@@ -1,22 +1,20 @@
 import pyrogram.errors
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from pyrogram.enums import ParseMode, ChatType
+from pyrogram.enums import ParseMode
 
-from pyrogram_patch.router import Router
 import asyncio
 
-from app.functions import fn
-
-router = Router()
+from app.utils import fn
 
 
-@router.on_message(filters.me & filters.command('info', prefixes='.'))
+@Client.on_message(filters.me & filters.command('info', prefixes='.'))
 async def send_info(client: Client, message: Message):
     await message.delete()
 
     target = fn.get_command_args(message, 'info')
-    if target == '':
+    if not target:
         if message.reply_to_message:
             target = message.reply_to_message
             info = fn.get_reply_to_message_info(target)
@@ -40,12 +38,12 @@ async def send_info(client: Client, message: Message):
         await client.send_message('me', text=chat)
 
 
-@router.on_message(filters.me & filters.command('full_info', prefixes='.'))
+@Client.on_message(filters.me & filters.command('full_info', prefixes='.'))
 async def send_full_info(client: Client, message: Message):
     await message.delete()
 
     target = fn.get_command_args(message, 'full_info')
-    if target == '':
+    if not target:
         await client.send_message('me', text=message)
         return
 
@@ -57,27 +55,27 @@ async def send_full_info(client: Client, message: Message):
         await client.send_message('me', text=chat)
 
 
-@router.on_message(filters.me & filters.command('gpt', prefixes='.'))
+@Client.on_message(filters.me & filters.command(['gpt', 'chatgpt'], prefixes='.'))
 async def send_gpt_response(client: Client, message: Message):
-    await message.delete()
+    query = fn.get_command_args(message, ['gpt', 'chatgpt'])
 
-    query = fn.get_command_args(message, 'gpt')
-
-    if query == '':
+    if not query:
         if message.reply_to_message:
             query = message.reply_to_message.text
         else:
-            return await message.reply('Query is None')
+            return await message.edit('Query is None')
 
     response = await fn.get_gpt_response(query)
 
     try:
-        await message.reply(text=response, parse_mode=ParseMode.MARKDOWN)
+        await message.edit(text=f'__Query__: **__{query}__**\n\n'
+                                f'{response}', parse_mode=ParseMode.MARKDOWN)
     except:
-        await message.reply(text=response)
+        await message.edit(text=f'Query: {query}\n\n'
+                                f'{response}')
 
 
-@router.on_message(filters.me & filters.command('ip', prefixes='.'))
+@Client.on_message(filters.me & filters.command('ip', prefixes='.'))
 async def send_ip_info(client: Client, message: Message):
     import re
 
@@ -96,24 +94,6 @@ async def send_ip_info(client: Client, message: Message):
     except:
         ...
 
-
-@router.on_message(filters.me & filters.command('typing', prefixes='.'))
-async def send_typing_msg(client: Client, message: Message):
-    orig_text = fn.get_command_args(message, 'typing')
-    text = orig_text
-    tbp = ''
-    sym = 'ㅤ'  # ░ㅤ👀
-
-    while tbp != orig_text:
-        try:
-            await message.edit(tbp + sym)
-            await asyncio.sleep(.1)
-            tbp += text[0]
-            text = text[1:]
-            await message.edit(tbp)
-            await asyncio.sleep(.1)
-        except pyrogram.errors.FloodWait as e:
-            await asyncio.sleep(e)
 
 
 # @router.on_message(filters.voice | filters.audio)
