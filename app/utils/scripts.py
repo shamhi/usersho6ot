@@ -1,6 +1,8 @@
 from typing import Union
 
+from pyrogram import Client
 from pyrogram.types import Message, Chat
+
 import asyncio
 import aiohttp
 import string
@@ -46,6 +48,19 @@ def get_chat_info(message: Chat) -> str:
            f'Chat ID: `{message.id}`\n' \
            f'Chat Type: `{message.type}`\n' \
            f'Chat Name: `{message.username}`\n'
+
+
+def with_args(text: str):
+    def decorator(func):
+        async def wrapped(client: Client, message: Message):
+            if message.text and len(message.text.split()) == 1:
+                await message.edit(text)
+            else:
+                return await func(client, message)
+
+        return wrapped
+
+    return decorator
 
 
 async def get_gpt_response(query: str) -> str:
