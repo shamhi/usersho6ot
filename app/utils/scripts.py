@@ -50,6 +50,16 @@ def get_chat_info(message: Chat) -> str:
            f'Chat Name: `{message.username}`\n'
 
 
+def with_reply(func):
+    async def wrapped(client: Client, message: Message):
+        if not message.reply_to_message:
+            await message.edit('<b>Reply to message is required</b>')
+        else:
+            return await func(client, message)
+
+    return wrapped
+
+
 def with_args(text: str):
     def decorator(func):
         async def wrapped(client: Client, message: Message):
