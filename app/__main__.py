@@ -5,14 +5,12 @@ import asyncio
 import logging
 
 from app.config import Config
-from app.plugins import router
 
 
 def setup_patch(app: Client):
     patch_manager = patch(app)
 
     patch_manager.set_storage(MemoryStorage())
-    patch_manager.include_router(router)
 
 
 
@@ -21,18 +19,19 @@ async def main():
         name="userbot1",
         api_id=Config.API_ID1,
         api_hash=Config.API_HASH1,
-     )
+        plugins=dict(root='plugins'),
+    )
 
     app2 = Client(
         name="userbot2",
         api_id=Config.API_ID2,
         api_hash=Config.API_HASH2,
+        plugins=dict(root='plugins'),
     )
 
-    setup_patch(app1)
-    setup_patch(app2)
-
     await compose([app1, app2])
+
+
 
 
 if __name__ == '__main__':
