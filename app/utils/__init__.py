@@ -1,1 +1,1 @@
-from . import funcs as fn
+from . import scripts as fn
