@@ -1,16 +1,30 @@
+from typing import Union
+
 from pyrogram.types import Message, Chat
 import asyncio
 import aiohttp
+import string
+import random
 
 from app.config import Config
 
 
-def get_command_args(message: Message, cmd_name: str = None, prefixes: str = '.') -> str:
-    if isinstance(cmd_name, str):
-        args = message.text.split(f'{prefixes}{cmd_name}', maxsplit=1)[-1].strip()
+def get_command_args(message: Union[Message, str], command: Union[str, list[str]] = None, prefixes: str = '.') -> str:
+    if isinstance(message, str):
+        return message.split(f'{prefixes}{command}', maxsplit=1)[-1].strip()
+
+    if isinstance(command, str):
+        args = message.text.split(f'{prefixes}{command}', maxsplit=1)[-1].strip()
         return args
 
-    return message.text
+    elif isinstance(command, list):
+        for cmd in command:
+            args = message.text.split(f'{prefixes}{cmd}', maxsplit=1)[-1]
+
+            if args != message.text:
+                return args.strip()
+
+    return ''
 
 
 def get_reply_to_message_info(target: Message) -> str:
@@ -113,3 +127,34 @@ async def speech_to_text(file_bytes):
                     return text
     except Exception as er:
         return f'Error\n```\n{er}\n```'
+
+
+def generate_random_string(length: int) -> str:
+    characters = string.ascii_letters + string.digits
+    return "".join([random.choice(characters) for _ in range(length)])
+
+async def paste_yaso(code: str, expiration_time: int = 10080):
+    try:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
+            async with session.post(
+                "https://api.yaso.su/v1/auth/guest",
+            ) as auth:
+                auth.raise_for_status()
+
+            async with session.post(
+                "https://api.yaso.su/v1/records",
+                json={
+                    "captcha": generate_random_string(569),
+                    "codeLanguage": "auto",
+                    "content": code,
+                    "expirationTime": expiration_time,
+                },
+            ) as paste:
+                paste.raise_for_status()
+                result = await paste.json()
+                print(result)
+                print(type(result))
+    except Exception:
+        return "Pasting failed"
+    else:
+        return f"https://yaso.su/{result.get('url')}"
