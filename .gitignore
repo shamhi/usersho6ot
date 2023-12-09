@@ -136,6 +136,10 @@ venv.bak/
 *.sqlite3
 *-journal
 
+# Downloads
+downloads
+app/downloads
+
 # Spyder project settings
 .spyderproject
 .spyproject
