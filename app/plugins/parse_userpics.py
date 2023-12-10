@@ -1,48 +1,107 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from pyrogram.errors import FloodWait
+
+from zipfile import ZipFile
+from datetime import datetime
+import asyncio
+import os
 
 from app.utils import fn
 
 
 @Client.on_message(filters.me & filters.command('ppic', prefixes='.'))
+@fn.with_args("<b>This command don't work without args</b>")
 async def get_group_userpics(client: Client, message: Message):
-    chat = fn.get_command_args(message, command='ppic')
-    print('Начался процесс парсинга юзеров')
-    file_ids = [member.user.photo.big_file_id async for member in client.get_chat_members(chat_id=chat, limit=1000)
+    args = fn.get_command_args(message, command='ppic')
+    if len(args.split()) > 1:
+        chat = args.split()[0]
+        limit = int(args.split()[1])
+    else:
+        chat = args
+        limit = 0
+
+    await message.edit(f'<emoji id=5947553854030614234>🟡</emoji>Начался процесс парсинга юзеров из чата <code>{chat}</code><emoji id=5256026508346011293>🔤</emoji>')
+    file_ids = [member.user.photo.big_file_id async for member in client.get_chat_members(chat_id=chat, limit=limit)
                 if member.user.photo]
 
-    print(f'Начался процесс парсинга аватарок из {len(file_ids)}')
+    await message.edit(
+        f'<emoji id=5947553854030614234>🟡</emoji>Начался процесс парсинга аватарок у {len(file_ids)} юзеров из чата <code>{chat}</code><emoji id=5256026508346011293>🔤</emoji>')
+    path = f'downloads/{chat}.zip'
     count = 0
     for file_id in file_ids:
         try:
-            await client.download_media(file_id, f'downloads/{chat}/')
-            count += 1
-            print(count)
-        except Exception as err:
-            print(err)
+            with ZipFile(path, 'a') as archive:
+                file_bytes = await client.download_media(file_id, in_memory=True)
+                file_name = f'chat_photo_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{"".join(str(datetime.timestamp(datetime.now())).split("."))}.jpg'
+                with open('downloads/temp.jpg', 'wb') as f:
+                    f.write(file_bytes.getvalue())
 
-    print(f'Процесс окончен! Спарсено {count} аватарок')
+                archive.write('downloads/temp.jpg', file_name)
+
+                count += 1
+        except:
+            ...
+
+    await message.edit(f'<emoji id=5206607081334906820>✔️</emoji>Процесс окончен! Спарсено {count} аватарок у {len(file_ids)} юзеров из чата <code>{chat}</code>')
+
+    await client.send_document('me', document=path)
+
+    try:
+        os.remove('downloads/temp.jpg')
+        os.remove(path)
+    except:
+        ...
 
 
 @Client.on_message(filters.me & filters.command('mpic', prefixes='.'))
+@fn.with_args("<b>This command don't work without args</b>")
 async def get_message_userpics(client: Client, message: Message):
-    chat = fn.get_command_args(message, command='mpic')
+    args = fn.get_command_args(message, command='mpic')
+    if len(args.split()) > 1:
+        chat = args.split()[0]
+        limit = int(args.split()[1])
+    else:
+        chat = args
+        limit = 0
 
-    print('Начался процесс парсинга юзеров')
+    check = await client.get_chat(chat)
+    if not check.permissions.can_send_messages:
+        return await message.edit('<emoji id=5210952531676504517>❌</emoji>Невозможно спарсить юзеров по сообщениям')
+
+    await message.edit(f'<emoji id=5947553854030614234>🟡</emoji>Начался процесс парсинга юзеров из чата <code>{chat}</code>')
+
     file_ids = []
-    async for member in client.search_messages(chat, limit=100):
+    async for member in client.search_messages(chat, limit=limit):
         if not member.from_user:
             continue
         if member.from_user.photo not in file_ids:
             file_ids.append(member.from_user.photo.big_file_id)
 
-    print(f'Начался процесс парсинга аватарок из {len(file_ids)}')
+    await message.edit(f'<emoji id=5947553854030614234>🟡</emoji>Начался процесс парсинга аватарок у {len(file_ids)} юзеров из чата <code>{chat}</code>')
+
+    path = f'downloads/{chat}.zip'
     count = 0
     for file_id in file_ids:
         try:
-            await client.download_media(file_id, f'downloads/{chat}/')
-            count += 1
-            print(count)
-        except Exception as err:
-            print(err)
-    print(f'Процесс окончен! Спарсено {count} аватарок')
+            with ZipFile(path, 'a') as archive:
+                file_bytes = await client.download_media(file_id, in_memory=True)
+                file_name = f'chat_photo_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{"".join(str(datetime.timestamp(datetime.now())).split("."))}.jpg'
+                with open('downloads/temp.jpg', 'wb') as f:
+                    f.write(file_bytes.getvalue())
+
+                archive.write('downloads/temp.jpg', file_name)
+
+                count += 1
+        except:
+            ...
+
+    await message.edit(f'<emoji id=5206607081334906820>✔️</emoji>Процесс окончен! Спарсено {count} аватарок у {len(file_ids)} юзеров из чата <code>{chat}</code>')
+
+    await client.send_document('me', document=path)
+
+    try:
+        os.remove('downloads/temp.jpg')
+        os.remove(path)
+    except:
+        ...
