@@ -29,31 +29,10 @@ def get_command_args(message: Union[Message, str], command: Union[str, list[str]
     return ''
 
 
-def get_reply_to_message_info(target: Message) -> str:
-    return f'ㅤㅤㅤㅤㅤㅤㅤㅤ**USER INFO**ㅤㅤㅤㅤㅤㅤㅤㅤ\n' \
-           f'User ID: `{target.from_user.id}`\n' \
-           f'User Name: `{target.from_user.username}`\n' \
-           f'User Status: `{target.from_user.status}`\n' \
-           f'Is premium: `{target.from_user.is_premium}`\n' \
-           f'Date: `{target.date}`\n\n' \
-           f'ㅤㅤㅤㅤㅤㅤㅤㅤ**CHAT INFO**ㅤㅤㅤㅤㅤㅤㅤㅤ\n' \
-           f'Chat ID: `{target.chat.id}`\n' \
-           f'Chat Type: `{target.chat.type}`\n' \
-           f'Chat Name: `{target.chat.username}`\n' \
-           f'Reply Text: `{target.text}`'
-
-
-def get_chat_info(message: Chat) -> str:
-    return f'ㅤㅤㅤㅤㅤㅤㅤㅤ**CHAT INFO**ㅤㅤㅤㅤㅤㅤㅤㅤ\n' \
-           f'Chat ID: `{message.id}`\n' \
-           f'Chat Type: `{message.type}`\n' \
-           f'Chat Name: `{message.username}`\n'
-
-
 def with_reply(func):
     async def wrapped(client: Client, message: Message):
         if not message.reply_to_message:
-            await message.edit('<b>Reply to message is required</b>')
+            await message.edit('<emoji id=5210952531676504517>❌</emoji><b>Reply to message is required</b>')
         else:
             return await func(client, message)
 
@@ -64,7 +43,7 @@ def with_args(text: str):
     def decorator(func):
         async def wrapped(client: Client, message: Message):
             if message.text and len(message.text.split()) == 1:
-                await message.edit(text)
+                await message.edit(f'<emoji id=5210952531676504517>❌</emoji>{text}')
             else:
                 return await func(client, message)
 
