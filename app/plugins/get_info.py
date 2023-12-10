@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from pyrogram.enums import ParseMode
 
 from app.utils import fn
 
@@ -14,22 +13,17 @@ async def send_info(client: Client, message: Message):
     if not target:
         if message.reply_to_message:
             target = message.reply_to_message
-            info = fn.get_reply_to_message_info(target)
-        else:
-            info = fn.get_chat_info(message.chat)
 
         try:
-            await client.send_message('me', text=info, parse_mode=ParseMode.MARKDOWN)
+            await client.send_message('me', text=f"<pre language=json>{target}</pre>")
         except:
-            await client.send_message('me', text=message.chat)
+            await client.send_message('me', text=f"<pre language=json>{message.chat}</pre>")
 
         return
 
     try:
         chat = await client.get_chat(target)
-        info = fn.get_chat_info(chat)
-
-        await client.send_message('me', text=info)
+        await client.send_message('me', text=f"<pre language=json>{chat}</pre>")
     except:
         chat = 'Not found'
         await client.send_message('me', text=chat)
@@ -43,13 +37,13 @@ async def send_full_info(client: Client, message: Message):
     if not target:
         if len(str(message)) > 4096:
             message = await fn.paste_yaso(str(message))
-        return await client.send_message('me', text=message)
+        return await client.send_message('me', text=f"<pre language=json>{message}</pre>")
 
     try:
         chat = await client.get_chat(target)
         if len(str(chat)) > 4096:
             chat = await fn.paste_yaso(str(message))
-        await client.send_message('me', text=chat)
+        await client.send_message('me', text=f"<pre language=json>{chat}</pre>")
     except:
         chat = 'Not found'
         await client.send_message('me', text=chat)
