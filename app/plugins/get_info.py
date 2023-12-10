@@ -58,7 +58,7 @@ async def send_full_info(client: Client, message: Message):
 @Client.on_message(filters.me & filters.command('emoji', prefixes='.'))
 @fn.with_reply
 async def get_emoji_info(client: Client, message: Message):
-    emoji = f"{message.reply_to_message.text}\n{message.reply_to_message.entities}"
+    emoji = f'<pre language=json>"text": "{message.reply_to_message.text}"\n"entities": {message.reply_to_message.entities}</pre>'
 
     if len(str(emoji)) > 4096:
         emoji = await fn.paste_yaso(str(emoji))
