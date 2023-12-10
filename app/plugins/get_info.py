@@ -23,6 +23,8 @@ async def send_info(client: Client, message: Message):
 
     try:
         chat = await client.get_chat(target)
+        if len(str(chat)) > 4096:
+            chat = await fn.paste_yaso(str(message))
         await client.send_message('me', text=f"<pre language=json>{chat}</pre>")
     except:
         chat = 'Not found'
