@@ -11,9 +11,9 @@ async def get_all_commands(client: Client, message: Message):
         '<emoji id=5305763715692377402>1️⃣</emoji> <code>calc, c</code>': '<b><i>A simple calculator</i></b>\n'
                                                                           '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.calc 2+2*2</code>\n\n',
         '<emoji id=5307907239380528763>2️⃣</emoji> <code>ppic</code>': '<b><i>Parse userpics of members from groups, supergroups and channels</i></b>\n'
-                                                                       '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.ppic @group_username</code>\n\n',
+                                                                       '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.ppic @group_username (limit: int)</code>\n\n',
         '<emoji id=5305783000095537258>3️⃣</emoji> <code>mpic</code>': '<b><i>Parse userpics of members by messages from groups, supergroups and channels</i></b>\n'
-                                                                       '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.mpic @group_username</code>\n\n',
+                                                                       '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.mpic @group_username (limit: int)</code>\n\n',
         '<emoji id=5305255243104138538>4️⃣</emoji> <code>python, py</code>': '<b><i>Execute python code and output result</i></b>\n'
                                                                              '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.python print("Hello world")</code>\n\n',
         '<emoji id=5305288155438526869>5️⃣</emoji> <code>read_stories, rss</code>': '<b><i>Looking stories users from groups, supergroups and channels</i></b>\n'
