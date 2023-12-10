@@ -26,6 +26,8 @@ async def get_all_commands(client: Client, message: Message):
                                                                                '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.myc *args **kwargs</code>\n\n',
         '<emoji id=5307703499016910744>9️⃣</emoji> <code>full_info, info</code>': '<b><i>Send info about chat, user or message</i></b>\n'
                                                                                   '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.full_info *args **kwargs</code>\n\n',
+        '<emoji id=5305763715692377402>1️⃣</emoji><emoji id=5305749482170758709>0️⃣</emoji> <code>emoji</code>': '<b><i>Send info about emoji by reply</i></b>\n'
+                                                                                  '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.emoji *args **kwargs</code>\n\n',
         '<emoji id=5305763715692377402>1️⃣</emoji><emoji id=5305749482170758709>0️⃣</emoji> <code>all_commands, commands, cmds</code>': '<b><i>Send all available commands</i></b>\n'
                                                                                                                                         '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.commands *args **kwargs</code>\n\n'
     }
