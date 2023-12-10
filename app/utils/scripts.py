@@ -156,8 +156,6 @@ async def paste_yaso(code: str, expiration_time: int = 10080):
             ) as paste:
                 paste.raise_for_status()
                 result = await paste.json()
-                print(result)
-                print(type(result))
     except Exception:
         return "Pasting failed"
     else:
