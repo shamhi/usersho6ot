@@ -53,3 +53,14 @@ async def send_full_info(client: Client, message: Message):
     except:
         chat = 'Not found'
         await client.send_message('me', text=chat)
+
+
+@Client.on_message(filters.me & filters.command('emoji', prefixes='.'))
+@fn.with_reply
+async def get_emoji_info(client: Client, message: Message):
+    emoji = f"{message.reply_to_message.text}\n{message.reply_to_message.entities}"
+
+    if len(str(emoji)) > 4096:
+        emoji = await fn.paste_yaso(str(emoji))
+
+    await message.edit(emoji)
