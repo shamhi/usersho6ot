@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from pyrogram.enums import ParseMode
 
 from app.utils import fn
 
@@ -12,6 +11,6 @@ async def send_calculate(client: Client, message: Message):
         return await message.reply('Args is None')
 
     try:
-        await message.edit(f'**__{args}__** = **`{eval(args)}`**', parse_mode=ParseMode.MARKDOWN)
+        await message.edit(f'<pre language=json>{args} = {eval(args)}</pre>')
     except Exception as er:
-        await message.edit(f"**__{args}__** = **`{er}`**", parse_mode=ParseMode.MARKDOWN)
+        await message.edit(f"<pre language=json>{args}: {er}</pre>")
