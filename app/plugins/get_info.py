@@ -47,7 +47,7 @@ async def send_full_info(client: Client, message: Message):
             chat = await fn.paste_yaso(str(message))
         await client.send_message('me', text=f"<pre language=json>{chat}</pre>")
     except:
-        chat = 'Not found'
+        chat = '<emoji id=5210952531676504517>❌</emoji>Not found'
         await client.send_message('me', text=chat)
 
 
