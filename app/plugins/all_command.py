@@ -32,7 +32,9 @@ async def get_all_commands(client: Client, message: Message):
                                                                '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.photo_byid "file_id"</code>\n\n',
         f'{nums.get(1)}{nums.get(1)} <code>emoji</code>': '<b><i>Send info about emoji by reply</i></b>\n'
                                                           '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.emoji *args **kwargs</code>\n\n',
-        f'{nums.get(1)}{nums.get(2)} <code>all_commands, commands, cmds</code>': '<b><i>Send all available commands</i></b>\n'
+        f'{nums.get(1)}{nums.get(2)} <code>ava</code>': '<b><i>Send avatars from chat</i></b>\n'
+                                                          '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.ava "limit(int)"</code>\n\n',
+        f'{nums.get(1)}{nums.get(3)} <code>all_commands, commands, cmds</code>': '<b><i>Send all available commands</i></b>\n'
                                                                                  '<b><emoji id=5821116867309210830>🔃</emoji>Example</b> <code>.commands *args **kwargs</code>\n\n'
     }
 
