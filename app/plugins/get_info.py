@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+import html
+
 from app.utils import fn
 
 
@@ -60,3 +62,20 @@ async def get_emoji_info(client: Client, message: Message):
         emoji = await fn.paste_yaso(str(emoji))
 
     await message.edit(emoji)
+
+
+@Client.on_message(filters.me & filters.command('emojis_list', prefixes='.'))
+@fn.with_reply
+async def get_emojis_list(client: Client, message: Message):
+    emojis_list = []
+
+    for emoji, sym in zip(message.reply_to_message.entities, message.reply_to_message.text):
+        print(sym)
+        emojis_list.append(fr"<emoji id={emoji.custom_emoji_id}>{sym}</emoji>")
+
+    result = html.escape('\n'.join(emojis_list))
+
+    if len(str(emojis_list)) > 4096:
+        return await message.edit(await fn.paste_yaso(result))
+
+    await message.edit(f"<pre language=html>{result}</pre>")
