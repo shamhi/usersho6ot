@@ -41,9 +41,9 @@ async def get_all_commands(client: Client, message: Message):
                                                   f'<b>{rload()}Example</b> {hcode(".emoji *args **kwargs")}\n\n',
         f'{num(1)}{num(2)} {hcode("emoji_list, eml")}': '<b><i>Send avatars from chat</i></b>\n'
                                                         f'<b>{rload()}Example</b> {hcode(".eml *args **kwargs")}\n\n',
-        f'{num(1)}{num(3)} {hcode("ava")}': '<b><i>Send avatars from chat</i></b>\n'
-                                            f'<b>{rload()}Example</b> {hcode(".ava `limit(int)`")}\n\n',
-        f'{num(1)}{num(4)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
+        f'{num(1)}{num(3)} {hcode("avatars, ava")}': '<b><i>Send avatars from chat</i></b>\n'
+                                                     f'<b>{rload()}Example</b> {hcode(".ava `limit(int)`")}\n\n',
+        f'{num(1)}{num(5)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
                                                                      f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
