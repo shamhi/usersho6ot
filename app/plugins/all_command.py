@@ -14,10 +14,6 @@ def hcode(s):
     return f"<code>{s}</code>"
 
 
-def rload():
-    ...
-
-
 @Client.on_message(filters.me & filters.command(['all_command', 'commands', 'cmds'], prefixes='.'))
 async def get_all_commands(client: Client, message: Message):
     all_commands = {
