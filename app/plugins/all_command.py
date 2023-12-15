@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from pyrogram.errors import FloodWait
 
 from app.utils import nums, rload
 
@@ -49,8 +50,11 @@ async def get_all_commands(client: Client, message: Message):
                                                                      f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
-    text = ''
-    for cmd, desc in all_commands.items():
-        text += f"{cmd} : {desc}"
-        await message.edit(text)
-        await asyncio.sleep(.1)
+    try:
+        text = ''
+        for cmd, desc in all_commands.items():
+            text += f"{cmd} : {desc}"
+            await message.edit(text)
+            await asyncio.sleep(.1)
+    except FloodWait as e:
+        await asyncio.sleep(e)
