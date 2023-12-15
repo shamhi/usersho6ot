@@ -15,6 +15,8 @@ def hcode(s):
     return f"<code>{s}</code>"
 
 
+def rload():
+    ...
 
 
 @Client.on_message(filters.me & filters.command(['all_command', 'commands', 'cmds'], prefixes='.'))
