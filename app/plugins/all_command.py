@@ -22,7 +22,7 @@ async def get_all_commands(client: Client, message: Message):
         f'{num(2)} {hcode("ppic")}': '<b><i>Parse userpics of members from groups, supergroups and channels</i></b>\n'
                                      f'<b>{rload()}Example</b> {hcode(".ppic @group_username (limit: int)")}\n\n',
         f'{num(3)} {hcode("mpic")}': '<b><i>Parse userpics of members by messages from groups, supergroups and channels</i></b>\n'
-                                     '<b>{rload()}Example</b> {hcode(".mpic @group_username (limit: int)")}\n\n',
+                                     f'<b>{rload()}Example</b> {hcode(".mpic @group_username (limit: int)")}\n\n',
         f'{num(4)} {hcode("python, py")}': '<b><i>Execute python code and output result</i></b>\n'
                                            f'<b>{rload()}Example</b> {hcode(".python print(message.text)")}\n\n',
         f'{num(5)} {hcode("read_stories, rss")}': '<b><i>Looking stories users from groups, supergroups and channels</i></b>\n'
