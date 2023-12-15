@@ -53,7 +53,7 @@ async def send_full_info(client: Client, message: Message):
         await client.send_message('me', text=chat)
 
 
-@Client.on_message(filters.me & filters.command('emoji', prefixes='.'))
+@Client.on_message(filters.me & filters.command(['emoji', 'em'], prefixes='.'))
 @fn.with_reply
 async def get_emoji_info(client: Client, message: Message):
     emoji = f'<pre language=json>"text": "{message.reply_to_message.text}"\n"entities": {message.reply_to_message.entities}</pre>'
