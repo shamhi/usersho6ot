@@ -50,11 +50,12 @@ async def get_all_commands(client: Client, message: Message):
                                                                      f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
-    try:
-        text = ''
-        for cmd, desc in all_commands.items():
-            text += f"{cmd} : {desc}"
+    text = ''
+    for cmd, desc in all_commands.items():
+        text += f"{cmd} : {desc}"
+        try:
             await message.edit(text)
-            await asyncio.sleep(.1)
-    except FloodWait as e:
-        await asyncio.sleep(e)
+        except FloodWait as e:
+            await asyncio.sleep(e)
+        await asyncio.sleep(.1)
+
