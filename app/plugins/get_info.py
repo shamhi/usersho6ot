@@ -67,7 +67,7 @@ async def get_emoji_info(client: Client, message: Message):
 @Client.on_message(filters.me & filters.command(['emojis_list', 'emoji_list', 'eml'], prefixes='.'))
 @fn.with_reply
 async def get_emojis_list(client: Client, message: Message):
-    emojis_list = [f'    "<emoji id={emoji.custom_emoji_id}>{sym}</emoji>"' for emoji, sym in zip(message.reply_to_message.entities, message.reply_to_message.text)]
+    emojis_list = [f'    "<emoji id={emoji.custom_emoji_id}>{sym}</emoji>",' for emoji, sym in zip(message.reply_to_message.entities, message.reply_to_message.text)]
 
     result = html.escape("\n".join(emojis_list))
     result = f"[\n{result}\n]"
