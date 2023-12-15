@@ -17,11 +17,11 @@ async def get_photo_by_id(client: Client, message: Message):
         await message.reply('<emoji id=5210952531676504517>❌</emoji>Not found')
 
 
-@Client.on_message(filters.me & filters.command('ava', prefixes='.'))
+@Client.on_message(filters.me & filters.command(['avatars', 'ava'], prefixes='.'))
 async def get_avatar(client: Client, message: Message):
     await message.delete()
 
-    limit = fn.get_command_args(message, 'ava')
+    limit = fn.get_command_args(message, ['avatars', 'ava'])
     if not limit:
         limit = 0
 
