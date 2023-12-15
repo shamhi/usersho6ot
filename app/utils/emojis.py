@@ -90,3 +90,5 @@ def rcheck():
     return random.choice(accept)
 
 
+def rdeny():
+    return random.choice(deny)
