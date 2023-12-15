@@ -84,3 +84,9 @@ loads = [
 
 def rload():
     return random.choice(loads)
+
+
+def rcheck():
+    return random.choice(accept)
+
+
