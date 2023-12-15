@@ -64,16 +64,13 @@ async def get_emoji_info(client: Client, message: Message):
     await message.edit(emoji)
 
 
-@Client.on_message(filters.me & filters.command('emojis_list', prefixes='.'))
+@Client.on_message(filters.me & filters.command(['emojis_list', 'emoji_list', 'eml'], prefixes='.'))
 @fn.with_reply
 async def get_emojis_list(client: Client, message: Message):
-    emojis_list = []
+    emojis_list = [f'    "<emoji id={emoji.custom_emoji_id}>{sym}</emoji>"' for emoji, sym in zip(message.reply_to_message.entities, message.reply_to_message.text)]
 
-    for emoji, sym in zip(message.reply_to_message.entities, message.reply_to_message.text):
-        print(sym)
-        emojis_list.append(fr"<emoji id={emoji.custom_emoji_id}>{sym}</emoji>")
-
-    result = html.escape('\n'.join(emojis_list))
+    result = html.escape("\n".join(emojis_list))
+    result = f"[\n{result}\n]"
 
     if len(str(emojis_list)) > 4096:
         return await message.edit(await fn.paste_yaso(result))
