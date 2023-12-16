@@ -27,17 +27,17 @@ async def get_group_userpics(client: Client, message: Message):
 
     await message.edit(
         f'<emoji id=5947553854030614234>🟡</emoji>Начался процесс парсинга аватарок у {len(file_ids)} юзеров из чата <code>{chat}</code><emoji id=5256026508346011293>🔤</emoji>')
-    path = f'downloads/{chat}.zip'
+    path = f'app/downloads/{chat}.zip'
     count = 0
     for file_id in file_ids:
         try:
             with ZipFile(path, 'a') as archive:
                 file_bytes = await client.download_media(file_id, in_memory=True)
                 file_name = f'chat_photo_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{"".join(str(datetime.timestamp(datetime.now())).split("."))}.jpg'
-                with open('downloads/temp.jpg', 'wb') as f:
+                with open('app/downloads/temp.jpg', 'wb') as f:
                     f.write(file_bytes.getvalue())
 
-                archive.write('downloads/temp.jpg', file_name)
+                archive.write('app/downloads/temp.jpg', file_name)
 
                 count += 1
         except:
@@ -48,7 +48,7 @@ async def get_group_userpics(client: Client, message: Message):
     await client.send_document('me', document=path)
 
     try:
-        os.remove('downloads/temp.jpg')
+        os.remove('app/downloads/temp.jpg')
         os.remove(path)
     except:
         ...
@@ -80,17 +80,17 @@ async def get_message_userpics(client: Client, message: Message):
 
     await message.edit(f'<emoji id=5947553854030614234>🟡</emoji>Начался процесс парсинга аватарок у {len(file_ids)} юзеров из чата <code>{chat}</code>')
 
-    path = f'downloads/{chat}.zip'
+    path = f'app/downloads/{chat}.zip'
     count = 0
     for file_id in file_ids:
         try:
             with ZipFile(path, 'a') as archive:
                 file_bytes = await client.download_media(file_id, in_memory=True)
                 file_name = f'chat_photo_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}_{"".join(str(datetime.timestamp(datetime.now())).split("."))}.jpg'
-                with open('downloads/temp.jpg', 'wb') as f:
+                with open('app/downloads/temp.jpg', 'wb') as f:
                     f.write(file_bytes.getvalue())
 
-                archive.write('downloads/temp.jpg', file_name)
+                archive.write('app/downloads/temp.jpg', file_name)
 
                 count += 1
         except:
@@ -101,7 +101,7 @@ async def get_message_userpics(client: Client, message: Message):
     await client.send_document('me', document=path)
 
     try:
-        os.remove('downloads/temp.jpg')
+        os.remove('app/downloads/temp.jpg')
         os.remove(path)
     except:
         ...
