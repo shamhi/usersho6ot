@@ -1,17 +1,8 @@
 from pyrogram import Client, compose
-from pyrogram_patch import patch
-from pyrogram_patch.fsm.storages.memory_storage import MemoryStorage
 import asyncio
 import logging
 
 from app.config import Config
-
-
-def setup_patch(app: Client):
-    patch_manager = patch(app)
-
-    patch_manager.set_storage(MemoryStorage())
-
 
 
 async def main():
