@@ -9,7 +9,7 @@ import os
 @Client.on_message(filters.me & filters.command(['mychats', 'myc'], prefixes='.'))
 async def get_my_chats(client: Client, message: Message):
     await message.delete()
-    file_path = f'downloads/my_chats/{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.json'
+    file_path = f'app/downloads/my_chats/{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.json'
     data = [{
         'ID': obj.chat.id,
         'Name': obj.chat.username,
