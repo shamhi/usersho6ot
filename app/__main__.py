@@ -10,14 +10,14 @@ async def main():
         name="userbot1",
         api_id=Config.API_ID1,
         api_hash=Config.API_HASH1,
-        plugins=dict(root='plugins'),
+        plugins=dict(root='app/plugins'),
     )
 
     app2 = Client(
         name="userbot2",
         api_id=Config.API_ID2,
         api_hash=Config.API_HASH2,
-        plugins=dict(root='plugins'),
+        plugins=dict(root='app/plugins'),
     )
 
     await compose([app1, app2])
