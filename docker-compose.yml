@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ubot:
+    container_name: "Shamhi-ubot"
+    build:
+      context: .
+    stop_signal: SIGINT
+    restart: unless-stopped
+    command: "python3 -m app"
+    ports:
+      - "8000:8000"
