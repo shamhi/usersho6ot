@@ -45,8 +45,10 @@ async def get_all_commands(client: Client, message: Message):
         f'{num(1)}{num(3)} {hcode("avatars, ava")}': '<b><i>Send avatars from chat</i></b>\n'
                                                      f'<b>{rload()}Example</b> {hcode(".ava `limit(int)`")}\n\n',
         f'{num(1)}{num(4)} {hcode("translate, tr, p")}': '<b><i>Send avatars from chat</i></b>\n'
-                                            f'<b>{rload()}Example</b> {hcode(".tr dest(`en`, `ru`), text")}\n\n',
-        f'{num(1)}{num(5)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
+                                                         f'<b>{rload()}Example</b> {hcode(".tr dest(`en`, `ru`), text")}\n\n',
+        f'{num(1)}{num(5)} {hcode("spam")}': '<b><i>Send messages to user</i></b>\n'
+                                                         f'<b>{rload()}Example</b> {hcode(".spam user (required), sec (optional=0), limit (optional=100), text (optional=random)")}\n\n',
+        f'{num(1)}{num(6)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
                                                                      f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
@@ -58,4 +60,3 @@ async def get_all_commands(client: Client, message: Message):
         except FloodWait as e:
             await asyncio.sleep(e)
         await asyncio.sleep(.1)
-
