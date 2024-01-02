@@ -138,22 +138,23 @@ def generate_random_string(length: int) -> str:
     characters = string.ascii_letters + string.digits
     return "".join([random.choice(characters) for _ in range(length)])
 
+
 async def paste_yaso(code: str, expiration_time: int = 10080):
     try:
         async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
             async with session.post(
-                "https://api.yaso.su/v1/auth/guest",
+                    "https://api.yaso.su/v1/auth/guest",
             ) as auth:
                 auth.raise_for_status()
 
             async with session.post(
-                "https://api.yaso.su/v1/records",
-                json={
-                    "captcha": generate_random_string(569),
-                    "codeLanguage": "auto",
-                    "content": code,
-                    "expirationTime": expiration_time,
-                },
+                    "https://api.yaso.su/v1/records",
+                    json={
+                        "captcha": generate_random_string(569),
+                        "codeLanguage": "auto",
+                        "content": code,
+                        "expirationTime": expiration_time,
+                    },
             ) as paste:
                 paste.raise_for_status()
                 result = await paste.json()
@@ -196,7 +197,7 @@ async def get_weather(city):
             data.get('sys').get('sunset')) - datetime.datetime.fromtimestamp(data.get('sys').get('sunrise'))
 
         weather_info = \
-            f"<code>*** {datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} ***</code>\n\n" \
+            rf"<code>\*\*\* {datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} \*\*\*</code>\n\n" \
             f"🌍Погода в городе:   <code>{city}\n\n</code>" \
             f"🌡️Температура:   <code>{current_weather} °C {smile}\n\n</code>" \
             f"💧Влажность:   <code>{humidity} %</code>\n\n" \
