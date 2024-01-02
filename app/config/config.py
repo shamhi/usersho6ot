@@ -15,4 +15,6 @@ class Config:
     API_HASH1 = getenv('API_HASH1', str)
     API_ID2 = getenv('API_ID2', int)
     API_HASH2 = getenv('API_HASH2', str)
+
     EDEN_API = getenv('EDEN_API', str)
+    WEATHER_API = getenv('WEATHER_API', str)
