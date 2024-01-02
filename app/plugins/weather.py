@@ -12,4 +12,3 @@ async def send_weather_info(client: Client, message: Message):
     weather_info = await fn.get_weather(city)
 
     await message.edit(weather_info)
-
