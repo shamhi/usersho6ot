@@ -7,6 +7,7 @@ import asyncio
 import aiohttp
 import string
 import random
+import datetime
 
 from app.config import Config
 
@@ -160,3 +161,56 @@ async def paste_yaso(code: str, expiration_time: int = 10080):
         return "Pasting failed"
     else:
         return f"https://yaso.su/{result.get('url')}"
+
+
+async def get_weather(city):
+    try:
+        code_to_smile = {
+            "Clear": "Ясно \U00002600",
+            "Clouds": "Облачно \U00002601",
+            "Rain": "Дождь \U00002614",
+            "Drizzle": "Дождь \U00002614",
+            "Thunderstorm": "Гроза \U000026A1",
+            "Snow": "Снег \U0001F328",
+            "Mist": "Туман \U0001F32B"
+        }
+
+        url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={Config.WEATHER_API}&units=metric'
+
+        async with aiohttp.request('GET', url=url) as response:
+            data = await response.json()
+
+        weather_description = data.get('weather')[0].get('main')
+        smile = '🚫'
+        if weather_description in code_to_smile:
+            smile = code_to_smile.get(weather_description)
+
+        city = data.get('name')
+        current_weather = data.get('main').get('temp')
+        humidity = data.get('main').get('humidity')
+        pressure = data.get('main').get('pressure')
+        wind = data.get('wind').get('speed')
+        sunrise_timestamp = str(datetime.datetime.fromtimestamp(data.get('sys').get('sunrise')))[11:]
+        sunset_timestamp = str(datetime.datetime.fromtimestamp(data.get('sys').get('sunset')))[11:]
+        length_of_the_day = datetime.datetime.fromtimestamp(
+            data.get('sys').get('sunset')) - datetime.datetime.fromtimestamp(data.get('sys').get('sunrise'))
+
+        weather_info = \
+            f"<code>*** {datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} ***</code>\n\n" \
+            f"🌍Погода в городе:   <code>{city}\n\n</code>" \
+            f"🌡️Температура:   <code>{current_weather} °C {smile}\n\n</code>" \
+            f"💧Влажность:   <code>{humidity} %</code>\n\n" \
+            f"🌪️Давление:   <code>{pressure} мм.рт.ст</code>\n\n" \
+            f"💨Ветер:   <code>{wind} м/с</code>\n\n" \
+            f"🌅Восход солнца:   <code>{sunrise_timestamp}</code>\n\n" \
+            f"🌄Закат солнца:   <code>{sunset_timestamp}</code>\n\n" \
+            f"⌛️Продолжительность дня:   <code>{length_of_the_day}</code>\n\n" \
+            f"✨Хорошего дня!"
+
+        with open('cities.txt', 'a') as file:
+            file.write(f"{datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} {city}\n")
+
+        return weather_info
+    except Exception:
+        weather_info = f"⛔️Город <code>{city}</code> не найден"
+        return weather_info
