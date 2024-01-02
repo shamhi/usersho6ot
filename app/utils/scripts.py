@@ -197,7 +197,7 @@ async def get_weather(city: str) -> str:
             data.get('sys').get('sunset')) - datetime.datetime.fromtimestamp(data.get('sys').get('sunrise'))
 
         weather_info = \
-            rf"<code>\*\*\* {datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} \*\*\*</code>\n\n" \
+            f"<code>*** {datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} ***</code>\n\n" \
             f"🌍Погода в городе:   <code>{city}\n\n</code>" \
             f"🌡️Температура:   <code>{current_weather} °C {smile}\n\n</code>" \
             f"💧Влажность:   <code>{humidity} %</code>\n\n" \
