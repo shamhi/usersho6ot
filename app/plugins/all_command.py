@@ -37,21 +37,21 @@ async def get_all_commands(client: Client, message: Message):
         f'{num(9)} {hcode("full_info, info")}': '<b><i>Send info about chat, user or message</i></b>\n'
                                                 f'<b>{rload()}Example</b> {hcode(".full_info *args **kwargs")}\n\n',
         f'{num(10)} {hcode("photo_byid")}': '<b><i>Send photo by file id</i></b>\n'
-                                                   f'<b>{rload()}Example</b> {hcode(".photo_byid `file_id`")}\n\n',
+                                            f'<b>{rload()}Example</b> {hcode(".photo_byid `file_id`")}\n\n',
         f'{num(11)} {hcode("emoji, em")}': '<b><i>Send info about emoji by reply</i></b>\n'
-                                                  f'<b>{rload()}Example</b> {hcode(".emoji *args **kwargs")}\n\n',
+                                           f'<b>{rload()}Example</b> {hcode(".emoji *args **kwargs")}\n\n',
         f'{num(12)} {hcode("emoji_list, eml")}': '<b><i>Send avatars from chat</i></b>\n'
-                                                        f'<b>{rload()}Example</b> {hcode(".eml *args **kwargs")}\n\n',
+                                                 f'<b>{rload()}Example</b> {hcode(".eml *args **kwargs")}\n\n',
         f'{num(13)} {hcode("avatars, ava")}': '<b><i>Send avatars from chat</i></b>\n'
-                                                     f'<b>{rload()}Example</b> {hcode(".ava `limit(int)`")}\n\n',
+                                              f'<b>{rload()}Example</b> {hcode(".ava `limit(int)`")}\n\n',
         f'{num(14)} {hcode("translate, tr, p")}': '<b><i>Send avatars from chat</i></b>\n'
-                                                         f'<b>{rload()}Example</b> {hcode(".tr dest(`en`, `ru`), text")}\n\n',
+                                                  f'<b>{rload()}Example</b> {hcode(".tr dest(`en`, `ru`), text")}\n\n',
         f'{num(15)} {hcode("spam")}': '<b><i>Send messages to user</i></b>\n'
-                                             f'<b>{rload()}Example</b> {hcode(".spam user (required), sec (optional=0), limit (optional=100), text (optional=random)")}\n\n',
+                                      f'<b>{rload()}Example</b> {hcode(".spam user (required), sec (optional=0), limit (optional=100), text (optional=random)")}\n\n',
         f'{num(16)} {hcode("weather")}': '<b><i>Send weather info</i></b>\n'
-                                                f'<b>{rload()}Example</b> {hcode(".weather Moscow")}\n\n',
+                                         f'<b>{rload()}Example</b> {hcode(".weather Moscow")}\n\n',
         f'{num(17)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
-                                                                     f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
+                                                              f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
     text = ''
