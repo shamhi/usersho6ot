@@ -164,7 +164,7 @@ async def paste_yaso(code: str, expiration_time: int = 10080):
         return f"https://yaso.su/{result.get('url')}"
 
 
-async def get_weather(city):
+async def get_weather(city: str) -> str:
     try:
         code_to_smile = {
             "Clear": "Ясно \U00002600",
