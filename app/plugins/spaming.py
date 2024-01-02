@@ -9,7 +9,8 @@ from app.utils import fn
 
 @Client.on_message(filters.me & filters.command('spam', prefixes='.'))
 @fn.with_args("<b>This command don't work without args\n"
-              "Command accepts such args as <b><i>\n{user (required), sec (optional=0), limit (optional=100), text (optional=\"random\")}</i></b></b>")
+              "Command accepts such args as <i>\n"
+              "{user (required), sec (optional=0), limit (optional=100), text (optional=\"random\")}</i></b>")
 async def spam_to_user(client: Client, message: Message):
     await message.delete()
 
