@@ -74,3 +74,5 @@ async def get_all_commands(client: Client, message: Message):
             await asyncio.sleep(.1)
 
         i += 1
+
+    await message.edit(text)
