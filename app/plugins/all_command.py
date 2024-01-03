@@ -50,7 +50,9 @@ async def get_all_commands(client: Client, message: Message):
                                       f'<b>{rload()}Example</b> {hcode(".spam user (required), sec (optional=0), limit (optional=100), text (optional=random)")}\n\n',
         f'{num(16)} {hcode("weather")}': '<b><i>Send weather info</i></b>\n'
                                          f'<b>{rload()}Example</b> {hcode(".weather Moscow")}\n\n',
-        f'{num(17)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
+        f'{num(17)} {hcode("purge")}': '<b><i>Purge all chat messages</i></b>\n'
+                                         f'<b>{rload()}Example</b> {hcode(".purge *args **kwargs")}\n\n',
+        f'{num(19)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
                                                               f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
