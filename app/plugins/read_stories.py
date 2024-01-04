@@ -18,10 +18,12 @@ async def read_stories(client: Client, message: Message):
     else:
         target_chat = args
         limit = 0
-    await message.edit(f'<emoji id=5981043230160981261>⏱</emoji>Начался процесс парсинга юзеров из чата <code>{target_chat}</code><emoji id=5256026508346011293>🔤</emoji>')
+    await message.edit(f'<emoji id=5981043230160981261>⏱</emoji>Начался процесс парсинга юзеров из чата '
+                       f'<code>{target_chat}</code><emoji id=5256026508346011293>🔤</emoji>')
     members = [member.user.id async for member in client.get_chat_members(target_chat, limit=limit)
                if not member.user.is_stories_unavailable and not member.user.is_deleted]
-    await message.edit(f'<emoji id=5981043230160981261>⏱</emoji>Начался процесс просмотра сторисов у {len(members)} юзеров из чата <code>{target_chat}</code><emoji id=5256026508346011293>🔤</emoji>')
+    await message.edit(f'<emoji id=5981043230160981261>⏱</emoji>Начался процесс просмотра сторисов у {len(members)} '
+                       f'юзеров из чата <code>{target_chat}</code><emoji id=5256026508346011293>🔤</emoji>')
     count = 0
     for member in members:
         try:
@@ -39,4 +41,5 @@ async def read_stories(client: Client, message: Message):
         except:
             ...
 
-    await message.edit(f'<emoji id=5206607081334906820>✔️</emoji>Процесс завершен, просмотрено {count} сторисов у {len(members)} юзеров из чата <code>{target_chat}</code>')
+    await message.edit(f'<emoji id=5206607081334906820>✔️</emoji>Процесс завершен, просмотрено {count} сторисов у '
+                       f'{len(members)} юзеров из чата <code>{target_chat}</code>')
