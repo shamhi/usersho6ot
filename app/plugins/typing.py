@@ -6,7 +6,6 @@ import asyncio
 from app.utils import fn
 
 
-
 @Client.on_message(filters.me & filters.command(['typing', 'tp'], prefixes='.'))
 async def send_typing_msg(client: Client, message: Message):
     orig_text = fn.get_command_args(message, ['typing', 'tp'])
