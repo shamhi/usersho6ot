@@ -1,7 +1,7 @@
 from typing import Union
 
 from pyrogram import Client
-from pyrogram.types import Message, Chat
+from pyrogram.types import Message
 
 import asyncio
 import aiohttp
