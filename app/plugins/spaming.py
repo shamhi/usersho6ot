@@ -30,7 +30,8 @@ async def spam_to_user(client: Client, message: Message):
 
     limit = int(limit) if limit != 'default' else 100
     sec = int(sec) if sec != 'default' else 0
-    text = [fn.generate_random_string(30) for _ in range(limit)] if text.lower() in ['default', 'generate', 'random'] else text
+    text = [fn.generate_random_string(30) for _ in range(limit)] if text.lower() in ['default', 'generate', 'random'] \
+        else text
 
     for _ in range(limit):
         await client.send_message(user, random.choice(text) if isinstance(text, list) else text)
