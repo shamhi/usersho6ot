@@ -6,7 +6,6 @@ import html
 from app.utils import fn
 
 
-
 @Client.on_message(filters.me & filters.command('info', prefixes='.'))
 async def send_info(client: Client, message: Message):
     await message.delete()
