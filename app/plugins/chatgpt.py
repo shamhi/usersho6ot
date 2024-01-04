@@ -5,7 +5,6 @@ from pyrogram.enums import ParseMode
 from app.utils import fn
 
 
-
 @Client.on_message(filters.me & filters.command(['gpt', 'chatgpt'], prefixes='.'))
 async def send_gpt_response(client: Client, message: Message):
     query = fn.get_command_args(message, ['gpt', 'chatgpt'])
