@@ -7,14 +7,14 @@ from app.config import Config
 
 async def main():
     app1 = Client(
-        name="userbot1",
+        name=Config.SESSION_NAME1,
         api_id=Config.API_ID1,
         api_hash=Config.API_HASH1,
         plugins=dict(root='app/plugins'),
     )
 
     app2 = Client(
-        name="userbot2",
+        name=Config.SESSION_NAME2,
         api_id=Config.API_ID2,
         api_hash=Config.API_HASH2,
         plugins=dict(root='app/plugins'),
