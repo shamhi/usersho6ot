@@ -33,6 +33,7 @@ MANIFEST
 *.spec
 
 # Installer logs
+unknown_errors.txt
 pip-log.txt
 pip-delete-this-directory.txt
 
