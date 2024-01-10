@@ -3,11 +3,16 @@ from typing import Union
 from pyrogram import Client
 from pyrogram.types import Message
 
+from loguru import logger
 import asyncio
 import aiohttp
 import string
 import random
 import datetime
+from json import loads
+
+import aiofiles
+from aiofiles.ospath import exists
 
 from app.config import Config
 
@@ -162,6 +167,14 @@ async def paste_yaso(code: str, expiration_time: int = 10080):
         return "Pasting failed"
     else:
         return f"https://yaso.su/{result.get('url')}"
+
+
+def get_value(file_json: dict,
+              *keys) -> str | None:
+    for key in keys:
+        if key in file_json:
+            return file_json[key]
+    return None
 
 
 async def get_weather(city: str) -> str:
