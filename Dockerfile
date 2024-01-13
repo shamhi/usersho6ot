@@ -4,8 +4,8 @@ WORKDIR app/
 
 COPY requirements.txt requirements.txt
 
-RUN apt update
-RUN apt install nodejs
+RUN apt update && apt install -y gnupg
+RUN apt install -y nodejs
 
 RUN pip3 install --upgrade pip setuptools wheel
 RUN pip3 install --no-warn-script-location --no-cache-dir -r requirements.txt
