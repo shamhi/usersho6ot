@@ -250,9 +250,6 @@ async def get_weather(city: str) -> str:
             f"⌛️Продолжительность дня:   <code>{length_of_the_day}</code>\n\n" \
             f"✨Хорошего дня!"
 
-        with open('cities.txt', 'a') as file:
-            file.write(f"{datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} {city}\n")
-
         return weather_info
     except Exception:
         weather_info = f"⛔️Город <code>{city}</code> не найден"
