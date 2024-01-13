@@ -543,7 +543,7 @@ class Farming:
                 logger.error(f'{self.session_name} | Неизвестная ошибка: {error}')
 
 
-@Client.on_message(filters.me & filters.command('nc', prefixes='.'))
+@Client.on_message(filters.me & filters.command(['notcoin', 'nc'], prefixes='.'))
 async def start_farming_handler(client: Client, message: Message):
     session_name = client.name
     try:
