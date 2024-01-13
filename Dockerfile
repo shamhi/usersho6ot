@@ -4,8 +4,8 @@ WORKDIR app/
 
 COPY requirements.txt requirements.txt
 
-COPY /usr/bin/node /usr/bin/node
 COPY /usr/bin/nodejs /usr/bin/nodejs
+COPY /usr/bin/node /usr/bin/node
 COPY /usr/bin/npm /usr/bin/npm
 COPY /usr/lib/nodejs /usr/lib/nodejs
 
