@@ -575,7 +575,7 @@ async def stop_farming_handler(client: Client, message: Message):
     await message.edit('<emoji id=5210952531676504517>❌</emoji>Процесс не найден')
 
 
-@Client.on_message(filters.me & filters.command(['nc-url', 'ncu']))
+@Client.on_message(filters.me & filters.command(['nc-url', 'ncu'], prefixes='.'))
 async def send_notcoin_url(client: Client, message: Message):
     result = await client.invoke(functions.messages.RequestWebView(
         peer=await client.resolve_peer('notcoin_bot'),
