@@ -1,3 +1,4 @@
+import os
 from typing import Union
 
 from pyrogram import Client
@@ -110,6 +111,10 @@ async def get_info_by_ip(ip: str) -> str:
             return result, data.get('lat'), data.get('lon')
 
 
+def get_file_bytes_by_path(path):
+    return open(path, 'rb')
+
+
 async def speech_to_text(file_bytes):
     try:
         url = "https://api.edenai.run/v2/audio/speech_to_text_async"
@@ -117,26 +122,17 @@ async def speech_to_text(file_bytes):
         data = {
             "providers": "openai",
             "language": "ru-RU",
+            'file': file_bytes
         }
-        files = {'file': file_bytes}
-        print(0)
         async with aiohttp.ClientSession() as session:
-            print(1)
-            async with session.post(url, data=data, headers=headers, files=files) as response:
-                print(2)
+            async with session.post(url, data=data, headers=headers) as response:
                 result = await response.json()
-                print(3)
-                public_id = result.get('public_id')
+                text = result.get('results', {}).get('openai', {}).get('text')
+                error = result.get('results', {}).get('openai', {}).get('error')
 
-                async with session.get(f'https://api.edenai.run/v2/audio/speech_to_text_async/{public_id}',
-                                       headers=headers) as result:
-                    print(4)
-                    result = await result.json()
-                    text = result.get('result', {}).get('openai', {}).get('text')
-
-                    return text
+                return text if text else error
     except Exception as er:
-        return f'Error\n```\n{er}\n```'
+        return f'Error\n<code>\n{er}\n</code>'
 
 
 def generate_random_string(length: int) -> str:
@@ -169,8 +165,8 @@ async def paste_yaso(code: str, expiration_time: int = 10080):
         return f"https://yaso.su/{result.get('url')}"
 
 
-def get_value(file_json: dict,
-              *keys) -> str | None:
+def get_value_by_json(file_json: dict,
+                      *keys) -> str | None:
     for key in keys:
         if key in file_json:
             return file_json[key]
@@ -191,13 +187,13 @@ async def read_session_json_file(session_name: str) -> dict:
             file_json: dict = loads(await file.read())
 
         result_dict: dict = {
-            'api_id': get_value(file_json, 'api_id', 'app_id', 'apiId', 'appId'),
-            'api_hash': get_value(file_json, 'api_hash', 'app_hash', 'apiHash', 'appHash'),
-            'device_model': get_value(file_json, 'deviceModel', 'device'),
-            'system_version': get_value(file_json, 'systemVersion', 'system_version', 'appVersion', 'app_version'),
-            'app_version': get_value(file_json, 'appVersion', 'app_version'),
-            'lang_code': get_value(file_json, 'lang_pack', 'langCode', 'lang'),
-            'system_lang_code': get_value(file_json, 'system_lang_pack', 'systemLangCode', 'systemLangPack')
+            'api_id': get_value_by_json(file_json, 'api_id', 'app_id', 'apiId', 'appId'),
+            'api_hash': get_value_by_json(file_json, 'api_hash', 'app_hash', 'apiHash', 'appHash'),
+            'device_model': get_value_by_json(file_json, 'deviceModel', 'device'),
+            'system_version': get_value_by_json(file_json, 'systemVersion', 'system_version', 'appVersion', 'app_version'),
+            'app_version': get_value_by_json(file_json, 'appVersion', 'app_version'),
+            'lang_code': get_value_by_json(file_json, 'lang_pack', 'langCode', 'lang'),
+            'system_lang_code': get_value_by_json(file_json, 'system_lang_pack', 'systemLangCode', 'systemLangPack')
         }
 
     except Exception as error:
