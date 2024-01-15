@@ -1,7 +1,7 @@
+import asyncio
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
-import asyncio
 
 from app.utils import fn
 
