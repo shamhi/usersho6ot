@@ -1,7 +1,7 @@
+import html
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
-import html
 
 from app.utils import fn
 
