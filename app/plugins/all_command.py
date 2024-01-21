@@ -55,7 +55,9 @@ async def get_all_commands(client: Client, message: Message):
                                          f'<b>{rload()}Example</b> {hcode(".purge *args **kwargs")}\n\n',
         f'{num(18)} {hcode("del")}': '<b><i>Delete reply message</i></b>\n'
                                        f'<b>{rload()}Example</b> {hcode(".del *args **kwargs")}\n\n',
-        f'{num(21)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
+        f'{num(19)} {hcode("ncu")}': '<b><i>Send notcoin url</i></b>\n'
+                                     f'<b>{rload()}Example</b> {hcode(".ncu *args **kwargs")}\n\n',
+        f'{num(20)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
                                                               f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
