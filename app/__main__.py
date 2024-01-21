@@ -1,19 +1,10 @@
 import asyncio
 import logging
 from os.path import exists
-from sys import stderr
 
 from pyrogram import Client, compose
-from loguru import logger
 
 from app.config import Config
-
-
-logger.remove()
-logger.add(stderr, format='<white>{time:HH:mm:ss}</white>'
-                          ' | <level>{level: <8}</level>'
-                          ' | <cyan>{line}</cyan>'
-                          ' - <white>{message}</white>')
 
 
 async def main():
