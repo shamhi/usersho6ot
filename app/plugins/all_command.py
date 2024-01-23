@@ -16,7 +16,7 @@ def hcode(s):
     return f"<code>{s}</code>"
 
 
-@Client.on_message(filters.me & filters.command(['all_command', 'commands', 'cmds'], prefixes='.'))
+@Client.on_message(filters.me & filters.command(['all_command', 'commands', 'cmds', 'help'], prefixes='.'))
 async def get_all_commands(client: Client, message: Message):
     all_commands = {
         f'{num(1)} {hcode("calc, c")}': '<b><i>A simple calculator</i></b>\n'
