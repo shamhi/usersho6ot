@@ -59,6 +59,8 @@ async def get_all_commands(client: Client, message: Message):
                                      f'<b>{rload()}Example</b> {hcode(".ncu *args **kwargs")}\n\n',
         f'{num(20)} {hcode("stt")}': '<b><i>Parse text from speech</i></b>\n'
                                      f'<b>{rload()}Example</b> {hcode(".stt *args **kwargs")}\n\n',
+        f'{num(21)} {hcode("ping")}': '<b><i>Check ping to Telegram servers</i></b>\n'
+                                      f'<b>{rload()}Example</b> {hcode(".ping *args **kwargs")}\n\n',
         f'{num(22)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
                                                               f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
