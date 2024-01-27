@@ -57,7 +57,9 @@ async def get_all_commands(client: Client, message: Message):
                                        f'<b>{rload()}Example</b> {hcode(".del *args **kwargs")}\n\n',
         f'{num(19)} {hcode("ncu")}': '<b><i>Send notcoin url</i></b>\n'
                                      f'<b>{rload()}Example</b> {hcode(".ncu *args **kwargs")}\n\n',
-        f'{num(20)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
+        f'{num(20)} {hcode("stt")}': '<b><i>Parse text from speech</i></b>\n'
+                                     f'<b>{rload()}Example</b> {hcode(".stt *args **kwargs")}\n\n',
+        f'{num(22)} {hcode("all_commands, commands, cmds")}': '<b><i>Send all available commands</i></b>\n'
                                                               f'<b>{rload()}Example</b> {hcode(".commands *args **kwargs")}\n\n'
     }
 
